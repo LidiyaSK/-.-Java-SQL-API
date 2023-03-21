@@ -1,0 +1,400 @@
+/*Даны площади круга и квадрата, 
+проверить поместится ли круг в квадрат 
+поместится ли квадрат в круг*/
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+      Scanner sc = new Scanner(System.in);
+      
+      double sCircle = sc.nextDouble();
+      double sSquare = sc.nextDouble();
+      System.out.println("Площадь круга = "+ sCircle);
+      System.out.println("Площадь квадрата = "+ sSquare);
+      
+      double diameter = 2 * Math.sqrt(sCircle/Math.PI);
+      System.out.println("Диаметр круга = "+ diameter);
+      
+      double diagonal = Math.sqrt(2 * sSquare);
+      System.out.println("Диагональ квадрата = "+ diagonal);
+      
+      double storona = Math.sqrt(sSquare);
+      System.out.println("Сторона квадрата = "+ storona);
+      
+      if (diameter <= storona) {
+        System.out.println("Круг поместится в квадрат");
+      }
+      else {
+        System.out.println("Круг не поместится в квадрат");
+      }
+      
+       if (diameter < diagonal) {
+        System.out.println("Квадрат не поместится в круг");
+      }
+      else {
+        System.out.println("Квадрат можно вписать в круг");
+      }
+  }
+}
+---------------------------------------------------------------------------------------------------------------------------
+// найти k-тый член ряда Фибоначчи, найти сумму первых n- чисел Фибоначчи, верно ли,что сумма первых n-чисел - четное число?
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+     
+     Scanner sc = new Scanner(System.in);
+     
+     int k = sc.nextInt();
+     int n = sc.nextInt();
+     
+     long fk1 = 1;
+     long fk2 = 1;
+     long fk = 0;
+     
+     long fn1 = 1;
+     long fn2 = 1;
+     long fn = 0;
+     
+     if (k < 1){
+       System.out.println("invalid k");
+     }
+     else{
+       if (k <= 2){
+       fk = 1;
+       }
+       else{
+         for ( int i=3; i <= k; i++){
+           fk = fk1 + fk2;
+           fk1 = fk2;
+           fk2 = fk;
+         }
+         System.out.println(" k-тое число фибоначчи равно " + fk);
+       }
+     }
+     if (n < 1){
+       System.out.println("invalid n");
+     }
+     else{
+        for ( int j=1; j <= n; j++){
+           fn = fn1 + fn2;
+           fn1 = fn2;
+           fn2 = fn;
+         }
+         System.out.println(" Сумма n-чисел фибоначчи равно " + (fn - 1) );
+      }
+      long  c = (fn-1)%2;
+      System.out.println(c);
+      boolean result = (c == 0);
+      System.out.println(result);
+  }
+}
+---------------------------------------------------------------------------------------------------------------------------
+/* Напечатать числа следующим образом:
+10 10.4
+11 11.4
+...
+25 25.4*/
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+     
+     for (int i = 10; i <= 25; i++){
+       System.out.println(i + "  " + (i + 0.4));
+     }
+     
+  }
+}
+---------------------------------------------------------------------------------------------------------------------------
+/* Дана непустая последовательность целых чисел, оканчивающаяся нулем. 
+Найти: 1.сумму всех чисел последовательности;  2.количество всех чисел последовательности */
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+     
+     Scanner sc = new Scanner(System.in);
+     int temp;
+     int sum = 0;
+     int count = 0;
+     
+      do{
+      temp = sc.nextInt();
+      sum = sum + temp;
+      count++;
+      System.out.println(temp + "  " + count + "  " + sum);
+    
+     }
+     while (temp != 0);
+     System.out.println("Количество чисел = " + count + ", сумма чисел = " + sum);
+  }
+}
+---------------------------------------------------------------------------------------------------------------------------
+/* Имеется фрагмент программы в виде оператора цикла с параметром, обеспечивающий вывод на экран "столбиком" всех целых чисел от 10 до 30.
+Оформить этот фрагмент в виде: 
+1.оператора цикла с предусловием;
+2.оператора цикла с постусловием. */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+     
+     int i = 10;
+     int j = 10;
+     
+    System.out.println("Цикл с предусловием (while)");
+    while (i <= 30){
+      System.out.println(i);
+      i++;
+    }
+    System.out.println("Цикл с постусловием (do - while)");
+    do{
+      System.out.println(j);
+      j++;
+    }
+    while (j <= 30);
+  }
+}
+---------------------------------------------------------------------------------------------------------------------------
+/* Гражданин  1 марта открыл счет в банке, вложив  1000 руб. Через каждый месяц размер вклада увеличивается на 2% от имеющейся суммы. 
+Определить:
+1.за какой месяц величина ежемесячного увеличения вклада превысит 30 руб.;
+2.через сколько месяцев размер вклада превысит 1200 руб. */
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+     
+     double vclad = 1000;
+     double sumVclad = vclad;
+     int count1 = 0;
+     double procent1 = 0;
+     int count2 = 0;
+     double procent2 = 0;
+     
+    do{
+      procent1 = vclad * 0.02;
+      count1++;
+      System.out.printf("Проценты за %d месяц =%f рублей\n", count1, procent1);
+    
+      vclad = vclad + procent1;
+    } 
+    while (procent1 <= 30);
+    System.out.println("Ежемесячное увеличение вклада превысит 30 руб на "+ count1+ " месяц");
+    System.out.println();
+    
+     
+     do{
+      procent2 = sumVclad * 0.02;
+      count2++;
+      System.out.printf("Сумма вклада на %d месяц составила %f рублей\n", count2, sumVclad);
+    
+      sumVclad = sumVclad + procent2;
+    } 
+    while (sumVclad <= 1200); 
+    System.out.println("Сумма вклада превысит 1200 руб на "+ count2+ " месяц");
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------
+/* Напечатать таблицу вида
+5
+5 5 
+5 5 5
+5 5 5 5
+*/
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+  public static void print(int num, int rows){
+    if (rows > 0){
+      for (int i = 0; i < rows; i++){
+        for (int j = 0; j <=i; j++){
+          System.out.print(num + "  ");
+        }
+        System.out.println();
+      }
+    }
+    else
+        System.out.println("Invalid parameters!");
+      
+  }
+  
+    public static void main(String[] args) {
+     
+     Scanner sc = new Scanner(System.in);
+     int num = sc.nextInt();
+     int rows = sc.nextInt();
+     
+     print (num, rows);
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------
+/* Напечатать полную таблицу сложения в виде:
+1 + 1 = 2     1 + 2 = 3  ... 1 + 9 = 10
+2 + 1 = 3     2 + 2 = 4  ... 2 + 9 = 11
+...
+9 + 1 = 10   9 + 2 = 11  ... 9 + 9 = 18
+*/
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+  public static void print(int rows, int columns){
+    if ((rows > 0)&& (columns > 0)){
+      for (int i = 1; i < rows; i++){
+        for (int j = 1; j <columns; j++){
+          System.out.printf("%d + %d = %d   ", i, j, (i + j));
+        }
+        System.out.println();
+      }
+    }
+    else
+        System.out.println("Invalid parameters!");
+      
+  }
+  
+    public static void main(String[] args) {
+     
+     Scanner sc = new Scanner(System.in);
+     int rows = sc.nextInt();
+     int columns = sc.nextInt();
+     
+     print (rows, columns);
+    }
+}
+-------------------------------------------------------------------------
+//от Антона через нескjлько методов
+import java.util.*;
+public class Main {
+    
+    public static void printElement(int a, int b) {
+      System.out.printf("%d + %d = %d\t", a, b, a + b);
+    }
+    
+    public static void printLine(int n) {
+      for(int i = 1; i <= 9; i++) {
+        printElement(n, i);
+      }
+      System.out.println();
+    }
+    
+    public static void printTable() {
+      for(int i = 1; i <= 9; i++) {
+        printLine(i);
+      }
+    }
+    
+    public static void main(String[] args) {
+      
+      printTable();  
+  }
+}
+-----------------------------------------------------------------------------------------------
+/* Реализовать функцию нахождения минимума: 1.Из трёх чисел 2.Из четырёх чисел */
+import java.util.*;
+public class Main {
+    
+    public static double min(double a, double b){
+      if (a < b)
+      return a;
+      else
+      return b;
+    }
+    public static double min(double a, double b, double c){
+      return min(min(a, b), c);
+    }
+    
+    public static double min(double a, double b, double c, double d){
+      return min(min(a, b, c), d);
+    }
+    
+    public static void main(String[] args) {
+      
+      System.out.println(min(5,6,7,-1));  
+  }
+}
+---------------------------------------------------------------------------------------------------------------------------
+/* Написать метод, который принимает на вход натуральное число и возвращает true, если число четное*/
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+    
+    public static boolean isEven(int a){
+    if ( a % 2 == 0)
+    return true;
+    else 
+    return false;
+    }
+    public static void main(String[] args) {
+      Scanner sc= new Scanner(System.in);
+      int x = sc.nextInt();
+      
+      System.out.println(isEven(x));  
+  }
+}
+------------------------------------------------------------------------------------------------------------------------------
+/* Имеется зарплата сотрудника- НАТУРАЛЬНОЕ число. 
+реализовать функцию рассчета премии 
+зарплата < 40000.  тогда премия 50% от зарплаты
+Зарплата 40000 <= x < 80000.  тогда премия 70% от зарплаты
+Зарплата >= 80000.  тогда премия 110% от зарплаты
+*/
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+    
+    public static boolean isReally(int a){
+    if ( a >= 0)
+    return true;
+    else 
+    return false;
+    }
+    public static double bonus(int a){
+      if (isReally(a)==true){
+        if ((a>=40000)&&(a<80000))
+        return ( a * 0.7);
+        else{
+          if (a<40000)
+          return (a * 0.5);
+          else 
+          return (a * 1.1);
+        }
+      }
+      else 
+      return 0;
+    }
+    public static void printBonus(int a){
+      if (isReally(a)==true)
+      System.out.printf("%.2f", bonus(a));
+      else
+      System.out.println("Введите положительное число");
+    }
+    public static void main(String[] args) {
+      Scanner sc= new Scanner(System.in);
+      int x = sc.nextInt();
+      
+      printBonus(x);  
+  }
+}
+--------------------------------------------------------------------------------------------------------------------------------------
+/* Реализовать функцию, которая принимает на вход 2 числа, n и m
+и возвращает n^m. 
+Реализовать перегрузку методов на разные типы данных.
+*/
+import java.util.*;
+
+public class Main {
+
+    public static double exp(int n, int m){
+      return (Math.pow(n,m));
+    }
+    public static double exp(double n, double m){
+      return (Math.pow(n,m));
+    }
+    public static double exp(double n, int m){
+      return (Math.pow(n,m));
+    }
+    public static double exp(int n, double m){
+      return (Math.pow(n,m));
+    }
+    public static void main(String[] args) {
+
+      System.out.printf("%.3f", exp(2.0,5));
+  }
+}
