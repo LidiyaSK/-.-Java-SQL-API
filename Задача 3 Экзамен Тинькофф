@@ -1,0 +1,80 @@
+/*Эта и последующие задачи оказались для меня сложными
+Но текущую я попыталась решить на уровне имеющихся знаний
+Я не смогла сделать поочередную считку сначала n, потом строки
+Реализовала только считку строки и подсчет подстроки.
+Вероятно, криво. 
+*/
+import java.util.Scanner;
+public class Main {
+  public static int min(int a, int b){
+      if (a < b)
+      return a;
+      else
+      return b;
+    }
+    public static int min(int a, int b, int c){
+      return min(min(a, b), c);
+    }
+    public static int min(int a, int b, int c, int d){
+      return min(min(a, b, c), d);
+    }
+  public static int max(int a, int b){
+      if (a > b)
+      return a;
+      else
+      return b;
+    }
+    public static int max(int a, int b, int c){
+      return max(max(a, b), c);
+    }
+    public static int max(int a, int b, int c, int d){
+      return max(max(a, b, c), d);
+    }
+  public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        int a;
+        int b;
+        int c;
+        int d;
+        int count1=-1;
+              
+        a = s.indexOf('a');
+        b = s.indexOf('b');
+        c = s.indexOf('c');
+        d = s.indexOf('d');
+       
+       if ((a<0)||(b<0)||(c<0)||(d<0))//проверяю наличие вообще всех 4-х букв в строке
+        System.out.println(-1);
+       else{
+/*Если ок, запускаю цикл, чтобы убирать из проверки
+ по 1 символу от начала строки, до момента, пока в оставшейся части
+ не "исчезнет" хотя бы 1 из 4-х нужных букв.
+ Это даст мне отсечь "лишнюю" часть*/         
+           for(int i=0; i < s.length(); i++){
+             a = s.indexOf('a', i);
+             b = s.indexOf('b', i);
+             c = s.indexOf('c', i);
+             d = s.indexOf('d', i);
+             count1++;
+            if ((a<0)||(b<0)||(c<0)||(d<0)){
+               break;
+             }
+           }
+ /*Далее, уже в оставшейся части, просто ищу первые индексы
+ всех 4-х букв. Максимальный из индексов- покажет мне дальнюю часть искомой подстроки
+ */          
+        int j =(count1-1);
+        a = s.indexOf('a', j);
+        b = s.indexOf('b', j);
+        c = s.indexOf('c', j);
+        d = s.indexOf('d', j);
+ System.out.println((max(a,b,c,d))-(min(a,b,c,d))+1);
+ /* Можо было обойтись без функции min, 
+ отталкиваясь лишь от max и count, но я решила так*/    
+       }
+    }
+}
+/*В любом случае, было интересно решать эту задачу,
+ и не решить остальные- теперь понимаю,
+ как мало я еще знакома с Java*/
