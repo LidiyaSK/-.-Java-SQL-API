@@ -1,0 +1,128 @@
+//Проверить верность неравенста вещественных чисел
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+      Scanner sc= new Scanner(System.in);
+      double a = sc.nextDouble();
+      double b = sc.nextDouble();
+      double c = sc.nextDouble();
+
+
+      boolean result1 = ((a < b) && (b < c));
+      boolean result2 = ((b > a) && (a > c));
+
+      System.out.printf("%f < %f < %f\n", a, b, c);
+      System.out.println(result1);    
+
+      System.out.printf("%f > %f > %f\n", b, a, c);
+      System.out.println(result2);    
+  }
+}
+
+// Если корень второго числа меньше первого числа, увеличить второе число в 5 раз
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+      Scanner sc= new Scanner(System.in);
+      double a= sc.nextDouble();
+      double b= sc.nextDouble();
+
+      System.out.printf("a = %f, b = %f\n", a, b);
+
+      if(Math.sqrt(b) < b) {
+        b = b * 5;
+      }
+
+      System.out.printf("a = %f, b = %f\n", a, b);
+  }
+}
+
+// Выигрыш - 3 очка, проигрыш - 0, ничья- 1 очко
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+      Scanner sc= new Scanner(System.in);
+      int r= sc.nextInt();
+
+      if (r < 3) {
+        if(r < 1) {
+          System.out.println("Количество очков "+r + " Проигрыш");
+        }
+        else {
+          System.out.println("Количество очков "+r + " Ничья");
+        }
+      }
+      else {
+        System.out.println("Количество очков "+r + " Выигрыш");
+      }
+  }
+}
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+      Scanner sc= new Scanner(System.in);
+      int r= sc.nextInt();
+
+      switch(r) {
+
+        case 0:
+          System.out.println("Проигрыш");
+          break;
+        case 1:
+          System.out.println("Ничья");
+          break;
+        case 3:
+          System.out.println("Выигрыш");
+          break;
+
+        default:
+          System.out.println("Incorrect number");
+          break;
+      }
+  }
+}
+
+
+// Вес боксера
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+      Scanner sc= new Scanner(System.in);
+      double v= sc.nextDouble();
+      System.out.println("Вес боксера "+v);
+
+      if(v < 75) {
+        if(v < 60) {
+          System.out.println("Легкий вес");
+        }
+        else {
+          System.out.println("Средний вес");
+        }
+
+      }
+      else {
+        if(v < 91) {
+          System.out.println("Тяжелый вес");
+        }
+        else {
+          System.out.println("Супертяжелый вес");
+        }
+      }
+  }
+}
+
+
