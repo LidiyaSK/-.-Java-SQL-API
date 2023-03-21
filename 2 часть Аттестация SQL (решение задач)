@@ -1,0 +1,97 @@
+-- Проверяем, что созданы все таблицы (департамент)
+SELECT * FROM department
+
+-- Проверяем, что созданы все таблицы (сотрудники)
+SELECT * FROM employees
+
+-- Проверяем, что созданы все таблицы (заказчики)
+SELECT * FROM customer
+
+-- Проверяем, что созданы все таблицы (контракты)
+SELECT * FROM contract
+
+-- Проверяем, что созданы все таблицы (сводная)
+SELECT * FROM executor
+
+-- Проверяем все таблицы вместе (и правильность JOIN) адаптировано под выдачу Элефант(с переименованием столбцов)
+
+SELECT dp.id, dp.name, em.id AS em_id, em.department_id, em.name AS em_name, ex.tab_no, ex.contract_id, cn.id AS cn_id, cn.customer_id, cn.amount, ct.id AS ct_id, ct.customer_name, ct.location FROM department dp
+         JOIN employees em ON em.department_id = dp.id 
+         JOIN executor ex ON ex.tab_no = em.id
+         JOIN contract cn ON cn.id = ex.contract_id
+         JOIN customer ct ON ct.id = cn.customer_id 
+
+_______________________________________________________________
+
+-- ЗАДАНИЕ 1
+-- Найти информацию о всех контрактах, связанных с сотрудниками департамента «Logistic». 
+-- Вывести: contract_id, employee_name
+-- В задании нет, но дополнительно отсортировала по имени исполнителя
+
+SELECT  ex.contract_id, em.name AS employee_name FROM executor ex
+         JOIN employees em ON em.id = ex.tab_no
+         JOIN department dp ON dp.id = em.department_id AND dp.name = 'Logistic'
+ORDER BY em.name
+
+
+-- ЗАДАНИЕ 2 
+-- Найти среднюю стоимость контрактов, заключенных сотрудников IvanIvanov. Вывести: среднее значение amount
+-- Примечание: В данных таблицах агрегатная функция AVG посчитает правильное среднее, нет смысла считать через формулу SUM/COUNT. В задании не сказано про необходимость округления, да и результат этого не требует, но я умею :)). Так же можно заменить здесть WHERE на AND и результат будет такой же. 
+
+SELECT  AVG(cn.amount) AS AVG_amount FROM contract cn
+         JOIN executor ex ON ex.contract_id = cn.id
+         JOIN employees em ON em.id = ex.tab_no
+WHERE em.name = 'Ivan Ivanov'         
+         
+
+-- ЗАДАНИЕ 3 
+-- Найти самую часто встречающуюся локации среди всех заказчиков. Вывести: location, count
+
+SELECT  location, COUNT(location) FROM customer
+GROUP BY location
+HAVING COUNT(location) = (SELECT COUNT(location) FROM customer
+                   GROUP BY location   
+                   ORDER BY COUNT(location)
+                   DESC
+                   LIMIT 1)   
+                    
+
+-- ЗАДАНИЕ 4 
+-- Найти контракты одинаковой стоимости. Вывести count, amount
+-- Добавила еще сортировку по возрастанию, чтобы смотрелось лучше
+
+SELECT  COUNT(amount), amount FROM contract
+GROUP BY amount
+HAVING COUNT(amount) > 1
+ORDER BY amount 
+
+
+-- ЗАДАНИЕ 5 
+-- Найти заказчика с наименьшей средней стоимостью контрактов. Вывести customer_name, среднее значение amount
+-- Как и в задании номер 2 используем агрегатную функцию AVG, здесь она посчитает все корректно, поскольку у нас каждого контракта по 1 штуке, соответственно, нет смысла городить функцию с суммами и делением, но я умею, когда надо. 
+
+SELECT ct.customer_name, AVG(cn.amount) FROM customer ct
+       JOIN contract cn ON cn.customer_id = ct.id
+GROUP BY ct.id
+HAVING AVG(cn.amount) = (SELECT AVG(amount) FROM contract 
+                         GROUP BY customer_id
+                         ORDER BY AVG(amount)
+                         LIMIT 1)
+ 
+
+-- ЗАДАНИЕ 6 
+-- Найти отдел, заключивший контрактов на наибольшую сумму. Вывести: department_name, sum
+
+SELECT dp.name AS department_name, SUM(cn.amount) FROM department dp
+         JOIN employees em ON em.department_id = dp.id 
+         JOIN executor ex ON ex.tab_no = em.id
+         JOIN contract cn ON cn.id = ex.contract_id
+GROUP BY dp.id
+HAVING SUM(cn.amount) = (SELECT SUM(cn.amount) FROM department dp
+                         JOIN employees em ON em.department_id = dp.id 
+                         JOIN executor ex ON ex.tab_no = em.id
+                         JOIN contract cn ON cn.id = ex.contract_id
+                         GROUP BY dp.id    
+                         ORDER BY SUM(cn.amount) 
+                         DESC 
+                         LIMIT 1) 
