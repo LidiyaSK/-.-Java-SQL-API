@@ -1,0 +1,236 @@
+/* Задача 8. Дано натуральное число, определить:
+1. Сколько раз в нем встречается последняя цифра
+2. Количество четных цифр в нем
+3. Сумму его цифр, больших пяти
+4. Произведение его цифр, больших семи
+*/
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+      Scanner sc= new Scanner (System.in);
+      int n = sc.nextInt();
+      System.out.println("Число " + n);
+      
+      int last1 = n % 10;  // Последняя цифра (неизменяемая)
+      int counterLast = 0;     // Счетчик последней цифры
+      int counterEven = 0;     // Счетчик четных цифр
+      int sum5 = 0;            // Сумма цифр больше 5
+      int mult7 = 1;           // Произведение цифр больше 7
+      
+      while(n != 0 ) {
+        int last = n % 10;
+        
+        if(last == last1) {
+          counterLast ++;
+        }
+        if((last % 2) == 0) {
+          counterEven ++;
+        }
+        if(last > 5) {
+          sum5 = sum5 + last;
+        }
+        if(last > 7) {
+          mult7 = mult7 * last;
+        }
+        
+        n = n / 10;
+      }
+    
+      System.out.printf("Cодержит последнюю цифру %d раз\n", counterLast);
+      System.out.printf("Cодержит четные цифры %d раз\n", counterEven);
+      System.out.println("Сумма его цифр, больших пяти равна " + sum5);
+      System.out.println("Произведение его цифр, больших семи равна " + mult7);
+    }
+ }  
+
+/* Задача 9. 
+Фрагмент программы, обеспечивающий вывод на экран столбиком всех целых чисел от 10 до 30
+1. Вывести оператором с предусловием
+2. Вывести оператором с постусловием
+*/
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+     
+     int i=10;
+     int j=10;
+     
+     while (i <=30){
+        System.out.println( i );
+        i++;
+      }
+      System.out.println("============");
+      
+     do {
+       System.out.println ( j );
+       j++;
+     }
+     while (j <=30);  
+    }
+ }
+
+/* Задача 10. 
+Дано натуральное число. 
+1.Определить его максимальную цифру
+2.Определить его минимальную цифру
+
+*/
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+      Scanner sc= new Scanner (System.in);
+      
+      int n = sc.nextInt();
+      System.out.println("Число " + n);
+      
+      int maх = 0;  
+      int min = 9;            
+      
+      while(n != 0) {
+        int last = n % 10;
+        
+        if(last > maх) {
+          maх = last;
+        }  
+        if (last < min) {
+            min = last;
+            
+            if ((min == 0) && (maх == 9)) {
+              break;
+            }
+        }
+        
+        n = n / 10;
+      }
+    
+      System.out.println("Максимальная цифра в нем " + maх);
+      System.out.println("Минимальная цифра в нем " + min);
+    }
+ }  
+
+/* Задача 12. 
+Гражданин  1 марта открыл счет в банке, вложив  1000 руб.
+Через каждый месяц размер вклада увеличивается на 2% от имеющейся суммы. 
+Определить:
+1.за какой месяц величина ежемесячного увеличения вклада превысит 30 руб.;
+2.через сколько месяцев размер вклада превысит 1200 руб.
+
+*/
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+      
+      double n = 1000;
+      double n1 = n;
+      System.out.println("Размер вклада " + n);
+      
+      double p = 1;
+      int counterN = 0;
+      int counterP = 0;
+      
+      while (p <= 30){
+        p = n * 0.02;
+        counterP ++;
+        if (p > 30){
+          System.out.printf("Ежемесячное увеличение вклада превысит 30 рублей на %d месяц\n", counterP);
+        }
+        n = n + p;
+      }  
+      
+      while (n1 <= 1200) {
+        n1 = n1 * 1.02;
+        counterN ++;
+        if (n1 > 1200){
+          System.out.printf("Размер вклада превысит 1200 рублей на %d месяц\n", counterN);
+        }
+      }
+   }
+ }  
+
+/* Задачи для самостоятельной работы: 
+1. Составить программу вывода любого числа (n) любое заданное число раз (k).
+
+*/
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+      
+     Scanner sc= new Scanner (System.in);
+     double n = sc.nextDouble();
+     int k= sc.nextInt();
+     System.out.printf ("Вывести %d раз число %f\n", k, n);
+     
+     for(int i = 1; i <= k; i++) {
+        System.out.println(n);
+     }
+  }
+}
+/* Задачи для самостоятельной работы: 
+2. Напечатать числа следующим образом:
+25 25.5 24.8
+26 26.5 25.8
+...
+35 35.5 34.8
+
+*/
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+      
+      for(int i = 25; i <= 35; i++) {
+        System.out.println(i + "  " + (i+0.5) + "  " + (i - 0.2) );
+     }
+  }
+}
+
+/* Задачи для самостоятельной работы: 
+3. Напечатать таблицу соответствия между весом в фунтах и весом в килограммах 
+для значений 1, 2, ..., 10 фунтов
+(1 фунт = 453 г).
+
+*/
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+      
+      for(int i = 1; i <= 10; i++) {
+        System.out.println(i + " фунт(ов) = " + (i * 0.453) + " кг");
+     }
+  }
+}
+
+/* Задачи для самостоятельной работы: 
+4. Вычислить сумму 1+1/2+1/3+...+1/n.
+
+*/
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+      
+      Scanner sc = new Scanner (System.in);
+      int n = sc.nextInt();
+      double sum = 0;
+      
+      for (int i= 1; i<= n; i++){
+        sum = sum + (1.0/i);
+        System.out.printf("При 1 / %d, промежуточная сумма равна %f\n", i, sum);
+      }
+      System.out.println("Итоговая сумма равна "+ sum);
+  }
+}
