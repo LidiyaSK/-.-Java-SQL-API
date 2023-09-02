@@ -1,0 +1,118 @@
+/*У Кости есть бумажка, на которой написано n чисел. Также у него есть возможность не больше, чем k раз, взять любое число с бумажки, после чего закрасить одну из старых цифр, а на ее месте написать новую произвольную цифру.
+На какое максимальное значение Костя сможет увеличить сумму всех чисел на листочке?
+Формат входных данных
+В первой строке входного файла даны два целых числа n,k — количество чисел на бумажке и ограничение на число операций. 
+(1≤n≤1000,1≤k≤104) .
+Во второй строке записано n чисел ai — числа на бумажке(1≤ai≤10^9)
+Формат выходных данных 
+В выходной файл выведите одно число — максимальную разность между конечной и начальной суммой.
+Замечание 
+В первом примере Костя может изменить две единицы на две девятки, в результате чего сумма чисел увеличится на 16.
+Ввод
+5  2
+1  2  1  3  5
+Вывод 16
+Во втором примере Костя меняет число 85 на 95.
+Ввод
+3  1
+99  5  85
+Вывод  10
+В третьем примере можно ничего не менять.
+Ввод
+1  10
+9999
+Вывод  0
+Обратите внимание, что ответ может превышать вместимость 3232-битного типа данных.
+*/
+
+//доделать с включением печати из функции
+//доделать проверки правильности ввода
+
+import java.util.*;
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+     public static void printArray(long[] array) {
+      
+      for(int i = 0; i < array.length; i++) {
+        System.out.print(array[i] + " ");
+      }
+      System.out.println();
+     }
+     
+==============
+
+import java.util.*;
+import java.util.Scanner;
+import java.util.Arrays;
+public class Main {
+   
+       
+    public static void main(String[] args) {
+     long sum = 0;
+     int count = 0;
+      
+     Scanner sc = new Scanner (System.in);
+     int n = sc.nextInt();
+     int k = sc.nextInt();
+     sc.nextLine();
+     
+     long[] array = new long[n];
+     
+       for(int i = 0; i < array.length; i++) {
+       array[i] = sc.nextLong();
+       }
+     Arrays.sort(array); 
+
+       for (int x = 9; x >= 1; x--){
+        int multiplier = (int)Math.pow(10,x);
+
+         for(int i = 0; i < array.length; i++){
+           if (count==k)
+           break;
+             
+           else{
+             if (array[i] >= multiplier){
+               if ((array[i] / multiplier) <9){
+               sum = sum +((9 - (array[i] / multiplier))* multiplier);
+               count++;
+               }
+               else
+               sum = sum;
+             }
+           }
+         }
+         for(int i = 0; i < array.length; i++){
+           if (count==k)
+           break;
+           else{
+             if (array[i] >= multiplier){
+                 if ((array[i] % multiplier)< (multiplier/10)){
+                 sum = sum + (9*(multiplier/10));
+                 count++;
+                 array[i] = ((array[i] % multiplier)+ 9*(multiplier/10));
+                 }
+              array[i] = (array[i] % multiplier);
+              }
+           }
+          // printArray(array);
+           Arrays.sort(array);
+          // printArray(array);
+          // System.out.println(sum);
+         }
+       }
+       for(int i = 0; i < array.length; i++){
+        if (count==k)
+        break; 
+        
+        else{
+          if ((array[i]>0) && (array[i]<9)){
+            sum = sum + (9 - array[i]);
+            count++;
+          }
+        }
+       }
+         
+    System.out.println(sum);
+  }
+}
